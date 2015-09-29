@@ -20,8 +20,8 @@ export function historyDriver(request$: HistoryRequest): HistoryResponse {
 	// Kick off our side effect to the browser	
 	outgoing$.subscribe(info => window.history.pushState(info.state, info.title, info.url))
 	
-	let popState$ = rx.Observable.fromEventPattern<PopStateEvent>((h: any) => window.addEventListener('onpopstate', h),
-		(h: any) => window.removeEventListener('onpopstate', h))
+	let popState$ = rx.Observable.fromEventPattern<PopStateEvent>((h: any) => window.addEventListener('popstate', h),
+		(h: any) => window.removeEventListener('popstate', h))
 		.map(ev => ev || { state: null }) // basic data cleanliness
 	
 	return rx.Observable.merge(<StateObservable>popState$, <StateObservable>outgoing$)
