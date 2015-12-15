@@ -1,7 +1,11 @@
 import * as rx from 'rx';
 export function historyDriver(request$) {
     let popState$ = rx.Observable.fromEventPattern((h) => window.addEventListener('popstate', h), (h) => window.removeEventListener('popstate', h))
-        .map(ev => Object.assign({ pop: true }, ev || { state: null })); // basic data cleanliness
+        .map(ev => {
+        let event = ev || { state: null };
+        event.pop = true;
+        return event;
+    });
     let history$ = request$
         .map(info => info || { state: null }) // basic data cleanliness
         .merge(popState$)

@@ -13,7 +13,11 @@ export type HistoryResponse = rx.Observable<any>
 export function historyDriver(request$: HistoryRequest): HistoryResponse {
 	let popState$ = rx.Observable.fromEventPattern<PopStateEvent>((h: any) => window.addEventListener('popstate', h),
 		(h: any) => window.removeEventListener('popstate', h))
-		.map(ev => Object.assign({ pop: true }, ev || { state: null })) // basic data cleanliness
+		.map(ev => {
+			let event: any = ev || { state: null }
+			event.pop = true
+			return event
+		})
 		
 	let history$ = request$
 		.map(info => info || { state: null }) // basic data cleanliness
