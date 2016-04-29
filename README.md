@@ -1,5 +1,7 @@
 # cycle-history
-HTML5 Browser History driver for [Cycle](http://cycle.js.org)
+Very simplified HTML5 Browser History driver for [Cycle](http://cycle.js.org)
+
+**DEPRECATED**: For a more robust solution, see the official [@cycle/history](https://github.com/cyclejs/history)
 
 Manipulates and responds to browser history changes using the modern `window.history`
 API. This is a useful prerequisite for single-page applications.
